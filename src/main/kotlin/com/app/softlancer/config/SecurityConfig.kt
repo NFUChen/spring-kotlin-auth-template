@@ -1,6 +1,8 @@
 package com.app.softlancer.config
 
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -25,8 +27,18 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
 
 
+@ConfigurationProperties(prefix = "web")
+class WebProperties(
+    /**
+     * List of routes that do not require authentication.
+     * These routes are accessible without any security checks.
+     */
+    @Value("\${unprotected-routes}") val unprotectedRoutes: List<String>
+)
+
 @Configuration
 class SpringSecurityConfig(
+    val webProperties: WebProperties,
     val requestMappingHandlerMapping: RequestMappingHandlerMapping,
 ) {
 
@@ -58,7 +70,7 @@ class SpringSecurityConfig(
     fun withDefaultChain(): Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> {
         return Customizer { auth ->
             auth
-//                .requestMatchers(*webProperties.unprotectedRoutes.toTypedArray()).permitAll()
+                .requestMatchers(*webProperties.unprotectedRoutes.toTypedArray()).permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
         }
