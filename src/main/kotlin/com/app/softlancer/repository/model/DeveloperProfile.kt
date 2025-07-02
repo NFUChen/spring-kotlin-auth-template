@@ -31,7 +31,7 @@ data class DeveloperProfile(
     @OneToOne(mappedBy = "profile", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     val user: User? = null,
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     val description: String? = null
 )
 
@@ -45,13 +45,13 @@ data class Portfolio(
     @Column(name = "title", nullable = false)
     val title: String,
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     val description: String? = null,
 
-    @Column(name = "link", nullable = false)
+    @Column(name = "link", nullable = false, columnDefinition = "TEXT")
     val link: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "profile_id", nullable = false)
+    @JoinColumn(name = "profile_id", nullable = false, referencedColumnName = "id")
     val profile: DeveloperProfile? = null
 )
