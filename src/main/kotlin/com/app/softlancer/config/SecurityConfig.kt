@@ -35,6 +35,7 @@ class WebProperties(
      */
     @Value("\${unprotected-routes}") val unprotectedRoutes: List<String>,
     @Value("\${jwt-secret}") val jwtSecret: String,
+    @Value("\${jwt-valid-seconds}") val jwtValidSeconds: Int,
 )
 
 @Configuration
