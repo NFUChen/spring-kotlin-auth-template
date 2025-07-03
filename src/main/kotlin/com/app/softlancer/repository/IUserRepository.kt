@@ -8,4 +8,5 @@ import java.util.UUID
 @Repository
 interface IUserRepository: CrudRepository<User, UUID> {
     fun findByUsername(username: String): User?
+    fun findByExternalId(externalId: String): User?
 }
