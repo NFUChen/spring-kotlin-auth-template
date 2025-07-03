@@ -1,10 +1,9 @@
 package com.app.softlancer.repository
 
-import com.app.softlancer.repository.model.User
+import com.app.softlancer.repository.model.ProjectProfile
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 import java.util.UUID
 
 @Repository
-interface UserRepository: CrudRepository<User, UUID> {
-}
+interface IProjectProfileRepository: CrudRepository<ProjectProfile, UUID>

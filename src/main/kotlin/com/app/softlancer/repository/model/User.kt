@@ -16,6 +16,7 @@ enum class Role(name: String) {
 data class UserView(
     val id: UUID,
     val userId: UUID,
+    val roles: Set<String>,
 )
 
 

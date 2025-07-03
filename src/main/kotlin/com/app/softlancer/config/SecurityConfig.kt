@@ -33,7 +33,8 @@ class WebProperties(
      * List of routes that do not require authentication.
      * These routes are accessible without any security checks.
      */
-    @Value("\${unprotected-routes}") val unprotectedRoutes: List<String>
+    @Value("\${unprotected-routes}") val unprotectedRoutes: List<String>,
+    @Value("\${jwt-secret}") val jwtSecret: String,
 )
 
 @Configuration
