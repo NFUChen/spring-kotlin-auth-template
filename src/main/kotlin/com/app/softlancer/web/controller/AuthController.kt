@@ -12,7 +12,7 @@ import java.util.*
 
 
 data class UserCredentials(
-    val username: String,
+    val email: String,
     val password: String
 )
 
@@ -44,7 +44,7 @@ class AuthController(
         @RequestBody credentials: UserCredentials,
         response: HttpServletResponse
     ): ResponseEntity<Map<String, String>> {
-        val token = authService.login(credentials.username, credentials.password)
+        val token = authService.login(credentials.email, credentials.password)
         authService.writeTokenToCookie(response, authService.LOGIN_KEY, token)
         return ResponseEntity.ok(mapOf("message" to "OK"))
     }

@@ -15,3 +15,9 @@ web:
   unprotected-routes:  /swagger-ui.html, /swagger-ui/**, /v3/api-docs/**, /v2/api-docs/**, /swagger-resources/**, /webjars/**, /api/public/**
   jwt-secret: 2SX8tCv36T2vGKCD88m8UKQ2OViNb9k7K4ogFTdhVGzs3suXPZxAATqmr9UZMFft
   jwt-valid-seconds: 3600
+
+app:
+  admin:
+    email: test@test.com
+    password: 123456
+    username: test

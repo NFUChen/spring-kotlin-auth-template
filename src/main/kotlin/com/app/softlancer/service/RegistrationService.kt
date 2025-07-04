@@ -13,7 +13,12 @@ class UserRegistrationEvent(user: User) : ApplicationEvent(user)
 
 
 interface IRegistrationService {
-    fun registerUser(username: String, password: String, roles: Iterable<String>): User
+    fun registerUser(
+        username: String,
+        email: String,
+        password: String,
+        roles: Iterable<String>
+    ): User
     fun registerExternalUser(
         username: String,
         email: String,
@@ -34,13 +39,19 @@ class RegistrationService(
     val logger = LoggerFactory.getLogger(RegistrationService::class.java)
 
     @Transactional
-    override fun registerUser(username: String, password: String, roles: Iterable<String>): User {
+    override fun registerUser(
+        username: String,
+        email: String,
+        password: String,
+        roles: Iterable<String>
+    ): User {
         val optionalUser = userRepository.findByUsername(username)
         if (optionalUser != null) return optionalUser
 
         val hashedPassword = passwordEncoder.encode(password)
         val user = User(
             name = username,
+            email = email,
             password = hashedPassword,
             roles = roles.toSet(),
             provider = User.DefaultPlatform,
@@ -66,7 +77,7 @@ class RegistrationService(
                 eventUser = optionalUser
                 return optionalUser
             }
-            val user = User(name = username, password = "", provider, externalId, roles.toSet())
+            val user = User(name = username, email,password = "", provider, externalId, roles.toSet())
             val savedUser = userRepository.save(user)
             eventUser = savedUser
             return savedUser

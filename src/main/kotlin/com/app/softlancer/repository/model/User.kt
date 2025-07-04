@@ -35,6 +35,9 @@ class User(
     private val password: String?,
 
     @Column(nullable = false)
+    val email: String,
+
+    @Column(nullable = false)
     val provider: String,
 
     @Column(nullable = true)
@@ -55,13 +58,14 @@ class User(
         const val DefaultPlatform = "LOCAL"
     }
 
-    constructor(name: String, password: String, provider: String, externalId: String?, roles: Iterable<String>) : this(
+    constructor(name: String, email: String,password: String, provider: String, externalId: String?, roles: Iterable<String>) : this(
         id = null,
         username = name,
         password = password,
         roles = roles.toMutableSet(),
         provider = provider,
         externalId = externalId,
+        email = email
     )
 
     @JsonIgnore

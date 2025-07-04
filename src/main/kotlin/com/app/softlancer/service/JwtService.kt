@@ -1,6 +1,5 @@
 package com.app.softlancer.service
 
-import com.app.softlancer.config.WebProperties
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts

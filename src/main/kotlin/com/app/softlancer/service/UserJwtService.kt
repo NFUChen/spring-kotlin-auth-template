@@ -1,6 +1,5 @@
 package com.app.softlancer.service
 
-import com.app.softlancer.config.WebProperties
 import com.app.softlancer.repository.model.User
 import jakarta.annotation.PostConstruct
 import org.springframework.stereotype.Service
@@ -26,6 +25,7 @@ class UserJwtService(
         val externalId = claims.externalId ?: ""
         val mapClaims = mutableMapOf(
             "id" to claims.id!!,
+            "email" to claims.email,
             "username" to claims.username,
             "roles" to claims.roles,
             "provider" to claims.provider,
@@ -39,6 +39,7 @@ class UserJwtService(
         val claims = defaultJwtService.parseToken(token) ?: return null
         return User(
             id = UUID.fromString(claims["sub"] as String),
+            email = claims["email"] as String,
             username = claims["username"] as String,
             roles = (claims["roles"] as List<*>).map { it.toString() }.toMutableSet(),
             password = "(sensitive)",

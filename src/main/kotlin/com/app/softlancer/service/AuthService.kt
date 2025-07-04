@@ -2,11 +2,12 @@ package com.app.softlancer.service
 
 import com.app.softlancer.PasswordNotMatch
 import com.app.softlancer.UserNotFound
-import com.app.softlancer.config.WebProperties
 import com.app.softlancer.repository.IUserRepository
 import com.app.softlancer.repository.model.User
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -17,11 +18,23 @@ interface IProvider {
     val name: String
 }
 
+
+@ConfigurationProperties(prefix = "web")
+class WebProperties(
+    /**
+     * List of routes that do not require authentication.
+     * These routes are accessible without any security checks.
+     */
+    @Value("\${unprotected-routes}") val unprotectedRoutes: List<String>,
+    @Value("\${jwt-secret}") val jwtSecret: String,
+    @Value("\${jwt-valid-seconds}") val jwtValidSeconds: Int,
+)
+
 interface IAuthService {
     val DefaultRoles: Iterable<String>
     val LOGIN_KEY: String
     fun assignRoles(userId: UUID, roles: Iterable<String>): User
-    fun login(username: String, password: String): String
+    fun login(email: String, password: String): String
     fun userLogin(user: User): String
     fun writeTokenToCookie(response: HttpServletResponse, key: String, token: String)
     fun logout(response: HttpServletResponse)
@@ -50,8 +63,8 @@ class AuthService(
 
     override val LOGIN_KEY = "jwt"
 
-    override fun login(username: String, password: String): String {
-        val user = userRepository.findByUsername(username) ?: throw UserNotFound
+    override fun login(email: String, password: String): String {
+        val user = userRepository.findByEmail(email) ?: throw UserNotFound
         if (!passwordEncoder.matches(password, user.password)) throw PasswordNotMatch
 
         return userJwtService.issueToken(user, webProperties.jwtValidSeconds)

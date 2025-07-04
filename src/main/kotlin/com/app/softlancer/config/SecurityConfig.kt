@@ -1,10 +1,12 @@
 package com.app.softlancer.config
 
+import com.app.softlancer.service.IAuthService
+import com.app.softlancer.service.WebProperties
+import com.app.softlancer.web.filter.UserJwtAuthenticationFilter
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Lazy
 import org.springframework.http.HttpMethod
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler
@@ -18,6 +20,7 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.authentication.password.HaveIBeenPwnedRestApiPasswordChecker
 import org.springframework.security.web.firewall.HttpFirewall
 import org.springframework.security.web.firewall.StrictHttpFirewall
@@ -27,20 +30,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
 
 
-@ConfigurationProperties(prefix = "web")
-class WebProperties(
-    /**
-     * List of routes that do not require authentication.
-     * These routes are accessible without any security checks.
-     */
-    @Value("\${unprotected-routes}") val unprotectedRoutes: List<String>,
-    @Value("\${jwt-secret}") val jwtSecret: String,
-    @Value("\${jwt-valid-seconds}") val jwtValidSeconds: Int,
-)
-
 @Configuration
 class SpringSecurityConfig(
     val webProperties: WebProperties,
+    @Lazy val authService: IAuthService,
     val requestMappingHandlerMapping: RequestMappingHandlerMapping,
 ) {
 
@@ -52,8 +45,7 @@ class SpringSecurityConfig(
     ): SecurityFilterChain {
         http
             .sessionManagement { sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
-//            .addFilterBefore(userJwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter::class.java)
-//            .addFilterAfter(identityJwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterBefore(userJwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter::class.java)
             .cors { cors -> cors.configurationSource(withDefaultCorsConfigurationSource()) }
             .authorizeHttpRequests(withDefaultChain())
             .csrf { it.disable() }
@@ -78,17 +70,9 @@ class SpringSecurityConfig(
         }
     }
 
-//    fun userJwtAuthenticationFilter(): UserJwtAuthenticationFilter {
-//        return UserJwtAuthenticationFilter(authService, webProperties.unprotectedRoutes)
-//    }
-//
-//    fun identityJwtAuthenticationFilter(): IdentityJwtAuthenticationFilter {
-//        return IdentityJwtAuthenticationFilter(authService, requestMappingHandlerMapping)
-//    }
-//
-//    fun persistentContextSwitchFilter(): PersistentContextSwitchFilter {
-//        return PersistentContextSwitchFilter(tenantIdentifierResolver, schemaService)
-//    }
+    fun userJwtAuthenticationFilter(): UserJwtAuthenticationFilter {
+        return UserJwtAuthenticationFilter(authService, webProperties.unprotectedRoutes)
+    }
 
     fun withDefaultCorsConfigurationSource(): CorsConfigurationSource {
         val config = CorsConfiguration()
