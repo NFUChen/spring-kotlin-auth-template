@@ -1,4 +1,4 @@
-package com.app.softlancer
+package com.app.core
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan

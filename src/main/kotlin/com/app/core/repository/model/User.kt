@@ -1,4 +1,4 @@
-package com.app.softlancer.repository.model
+package com.app.core.repository.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*

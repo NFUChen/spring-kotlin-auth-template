@@ -1,5 +1,5 @@
-package com.app.softlancer.web.controller
-import com.app.softlancer.SecurityException
+package com.app.core.web.controller
+import com.app.core.SecurityException
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

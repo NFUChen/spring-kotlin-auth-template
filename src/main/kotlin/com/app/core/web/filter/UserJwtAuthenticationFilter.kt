@@ -1,7 +1,7 @@
-package com.app.softlancer.web.filter
+package com.app.core.web.filter
 
 
-import com.app.softlancer.service.IAuthService
+import com.app.core.service.IAuthService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
 import jakarta.servlet.http.Cookie

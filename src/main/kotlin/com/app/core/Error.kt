@@ -1,4 +1,4 @@
-package com.app.softlancer
+package com.app.core
 
 class SecurityException(message: String) : RuntimeException(message)
 

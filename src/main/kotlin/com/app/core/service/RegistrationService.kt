@@ -1,7 +1,7 @@
-package com.app.softlancer.service
+package com.app.core.service
 
-import com.app.softlancer.repository.IUserRepository
-import com.app.softlancer.repository.model.User
+import com.app.core.repository.IUserRepository
+import com.app.core.repository.model.User
 import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationEvent
 import org.springframework.context.ApplicationEventPublisher

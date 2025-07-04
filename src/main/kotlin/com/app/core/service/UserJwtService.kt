@@ -1,6 +1,6 @@
-package com.app.softlancer.service
+package com.app.core.service
 
-import com.app.softlancer.repository.model.User
+import com.app.core.repository.model.User
 import jakarta.annotation.PostConstruct
 import org.springframework.stereotype.Service
 import java.util.*

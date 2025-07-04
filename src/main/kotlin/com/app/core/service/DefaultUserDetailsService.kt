@@ -1,6 +1,6 @@
-package com.app.softlancer.service
+package com.app.core.service
 
-import com.app.softlancer.repository.IUserRepository
+import com.app.core.repository.IUserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException

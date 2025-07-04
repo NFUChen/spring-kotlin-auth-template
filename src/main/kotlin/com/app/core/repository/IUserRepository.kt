@@ -1,6 +1,6 @@
-package com.app.softlancer.repository
+package com.app.core.repository
 
-import com.app.softlancer.repository.model.User
+import com.app.core.repository.model.User
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 import java.util.UUID

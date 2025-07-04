@@ -1,8 +1,8 @@
-package com.app.softlancer.config
+package com.app.core.config
 
-import com.app.softlancer.service.IAuthService
-import com.app.softlancer.service.WebProperties
-import com.app.softlancer.web.filter.UserJwtAuthenticationFilter
+import com.app.core.service.IAuthService
+import com.app.core.service.WebProperties
+import com.app.core.web.filter.UserJwtAuthenticationFilter
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

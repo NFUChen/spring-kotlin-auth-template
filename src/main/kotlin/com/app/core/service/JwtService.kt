@@ -1,4 +1,4 @@
-package com.app.softlancer.service
+package com.app.core.service
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.JwtException

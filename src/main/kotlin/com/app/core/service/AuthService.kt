@@ -1,9 +1,9 @@
-package com.app.softlancer.service
+package com.app.core.service
 
-import com.app.softlancer.PasswordNotMatch
-import com.app.softlancer.UserNotFound
-import com.app.softlancer.repository.IUserRepository
-import com.app.softlancer.repository.model.User
+import com.app.core.PasswordNotMatch
+import com.app.core.UserNotFound
+import com.app.core.repository.IUserRepository
+import com.app.core.repository.model.User
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.beans.factory.annotation.Value

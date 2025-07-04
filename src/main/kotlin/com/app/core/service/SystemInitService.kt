@@ -1,6 +1,6 @@
-package com.app.softlancer.service
+package com.app.core.service
 
-import com.app.softlancer.repository.model.Role
+import com.app.core.repository.model.Role
 import jakarta.annotation.PostConstruct
 import jakarta.transaction.Transactional
 import org.slf4j.LoggerFactory

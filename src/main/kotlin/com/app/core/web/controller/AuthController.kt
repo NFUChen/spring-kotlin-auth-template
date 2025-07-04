@@ -1,7 +1,7 @@
-package com.app.softlancer.web.controller
+package com.app.core.web.controller
 
-import com.app.softlancer.repository.model.User
-import com.app.softlancer.service.IAuthService
+import com.app.core.repository.model.User
+import com.app.core.service.IAuthService
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

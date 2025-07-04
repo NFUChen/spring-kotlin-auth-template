@@ -1,1 +1,1 @@
-rootProject.name = "softlancer"
+rootProject.name = "spring-boot-template"

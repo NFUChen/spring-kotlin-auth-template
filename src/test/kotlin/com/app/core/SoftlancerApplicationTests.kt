@@ -1,4 +1,4 @@
-package com.app.softlancer
+package com.app.core
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
