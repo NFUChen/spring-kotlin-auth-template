@@ -47,11 +47,6 @@ class User(
     @CollectionTable(name = "user_roles", joinColumns = [JoinColumn(name = "user_id")])
     val roles: MutableSet<String> = mutableSetOf(),
 
-
-    @OneToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "profile_id", referencedColumnName = "id", nullable = true)
-    val profile: DeveloperProfile? = null, // nullable to allow users without a profile, since user may not be a developer
-
     ) : UserDetails {
 
     companion object {
